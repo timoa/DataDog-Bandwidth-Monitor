@@ -2,10 +2,11 @@ import SpeedTest from 'speedtest-net'
 import metrics from 'datadog-metrics'
 
 const SPEED_TEST_INTERVAL_MIN = process.env.SPEED_TEST_INTERVAL_MIN || 20;
+const SPEED_TEST_HOST = process.env.SPEED_TEST_HOST || 'ISP';
 
 metrics.init({
-    host: 'ISP',
-    prefix: 'isp.'
+    host: SPEED_TEST_HOST,
+    prefix: `${SPEED_TEST_HOST.toLowerCase()}.`
 });
 
 uploadBandwidth(() => {
@@ -30,7 +31,7 @@ function uploadBandwidth(callback) {
     });
 
     test.on('data', testData => {
-        console.log("Uploading results...");
+        console.log(`Uploading results for ${SPEED_TEST_HOST}...`);
         var dlSpeed = testData.speeds.download;
         var ulSpeed = testData.speeds.upload;
         metrics.gauge('speed.download', dlSpeed);
