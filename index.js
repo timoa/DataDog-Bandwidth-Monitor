@@ -34,8 +34,10 @@ function uploadBandwidth(callback) {
         console.log(`Uploading results for ${SPEED_TEST_HOST}...`);
         var dlSpeed = testData.speeds.download;
         var ulSpeed = testData.speeds.upload;
+        var ping = testData.server.ping;
         metrics.gauge('speed.download', dlSpeed);
         metrics.gauge('speed.upload', ulSpeed);
+        metrics.gauge('speed.ping', ping);
         if(callback) {
             callback();
         };
