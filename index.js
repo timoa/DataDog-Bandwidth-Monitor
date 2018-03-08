@@ -6,7 +6,7 @@ const SPEED_TEST_HOST = process.env.SPEED_TEST_HOST || 'ISP';
 
 metrics.init({
     host: SPEED_TEST_HOST,
-    prefix: `${SPEED_TEST_HOST.toLowerCase()}.`
+    prefix: 'isp.'
 });
 
 uploadBandwidth(() => {
@@ -37,7 +37,7 @@ function uploadBandwidth(callback) {
         var ping = testData.server.ping;
         metrics.gauge('speed.download', dlSpeed);
         metrics.gauge('speed.upload', ulSpeed);
-        metrics.gauge('speed.ping', ping);
+        metrics.gauge('ping', ping);
         if(callback) {
             callback();
         };
